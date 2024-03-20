@@ -1,0 +1,45 @@
+<clr-main-container>
+  <!-- <clr-header role="banner"><button type="button" class="header-hamburger-trigger ng-star-inserted"
+      aria-label="Open navigation menu"><span></span></button>
+    <div class="branding"><a routerlink="/" class="logo-and-title" href="/"><span
+          class="clr-icon clarity-logo"></span><span class="title">Offer Insurance Brokerage</span></a></div>
+    <div class="header-actions">
+      <div class="header-backdrop">Logout</div>
+    </div>
+  </clr-header> -->
+  <clr-header>
+    <div class="branding">
+      <a href="..." class="nav-link">
+        <cds-icon shape="vm-bug"></cds-icon>
+        <span class="title">Offer Insurance Brokerage</span>
+      </a>
+    </div>
+    <div class="header-nav" [clr-nav-level]="1">
+      <!-- <a href="..." class="active nav-link"><span class="nav-text">Dashboard</span></a> -->
+      <!-- <a href="..." class="nav-link"><span class="nav-text">Interactive Analytics</span></a> -->
+    </div>
+    <div class="header-actions">
+      <a href="javascript:void(0)" (click)="logout()" class="nav-link nav-icon" aria-label="logout">
+        <cds-icon shape="logout" solid="true"></cds-icon>
+      </a>
+    </div>
+  </clr-header>
+  <div class="content-container">
+    <clr-vertical-nav [clrVerticalNavCollapsible]="true">
+      <clr-vertical-nav-group routerLinkActive="active">
+        <cds-icon shape="flame" clrVerticalNavIcon></cds-icon>
+        ICA Application
+        <clr-vertical-nav-group-children>
+          <a clrVerticalNavLink routerLink="./home/ica/ic-mapping" routerLinkActive="active">IC
+            Mapping</a>
+          <a clrVerticalNavLink routerLink="./home/ica/lookup-values" routerLinkActive="active">Lookup Values</a>
+          <a clrVerticalNavLink routerLink="./home/ica/ic-api-metadata" routerLinkActive="active">IC API Metadata</a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
+
+    </clr-vertical-nav>
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</clr-main-container>

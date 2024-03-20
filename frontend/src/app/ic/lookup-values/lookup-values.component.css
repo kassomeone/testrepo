@@ -1,0 +1,11 @@
+.filter-container {
+    display: flex;
+    align-items:baseline;
+}
+
+.filter-container> * {
+    /* flex: 1; */
+    /* border: 1px solid black; */
+    margin-top: unset;
+    padding-left: 10px;
+}

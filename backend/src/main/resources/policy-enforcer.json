@@ -1,0 +1,8 @@
+{
+    "realm": "offersa",
+    "auth-server-url": "http://company-apis.offer.sa:8001/auth/",
+    "resource": "offersa-client",
+    "credentials": {
+      "secret": "j4xyKar7iBQoDMemN7nf5Mdozi6PN9kC"
+    }
+  }

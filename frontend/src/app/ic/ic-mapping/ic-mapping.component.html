@@ -1,0 +1,19 @@
+
+<clr-select-container>
+    <select clrSelect [formControl]="selectedMap">
+        <option *ngFor="let item of mappingType" [value]="item">{{item}}</option>
+    </select>
+</clr-select-container>
+
+<br><br>
+
+
+<clr-datagrid>
+    <clr-dg-column>Source</clr-dg-column>
+    <clr-dg-column>Target</clr-dg-column>
+    <clr-dg-row *ngFor="let subItem of selectedMapData ">
+        <clr-dg-cell>{{subItem.inputField[0].name}}</clr-dg-cell>
+        <clr-dg-cell>{{subItem.outputField[0].name}}</clr-dg-cell>
+    </clr-dg-row>
+    <!-- ... -->
+</clr-datagrid>

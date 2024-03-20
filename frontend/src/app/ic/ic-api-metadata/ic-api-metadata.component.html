@@ -1,0 +1,89 @@
+<!-- <button class="btn btn-sm btn-primary" (click)="form.reset({isEnabled:true}) ; modal.open()">Insert New</button> -->
+
+
+
+<clr-datagrid [(clrDgSelected)]="selected">
+    <clr-dg-action-bar>
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-secondary"
+                (click)="form.reset({isEnabled:true});modal.open()">Insert New
+            </button>
+            <button [disabled]="selected.length==0" type="button" class="btn btn-sm btn-secondary"
+                (click)="toggleActive(true);">Enable
+            </button>
+            <button [disabled]="selected.length==0"  type="button" class="btn btn-sm btn-secondary"
+                (click)="toggleActive(false);">Disable
+            </button>
+        </div>
+    </clr-dg-action-bar>
+    <clr-dg-column>iC Code</clr-dg-column>
+    <clr-dg-column>Request Type</clr-dg-column>
+    <clr-dg-column>Sub Request Type</clr-dg-column>
+    <clr-dg-column>ICA Code</clr-dg-column>
+    <clr-dg-column>ICA Name</clr-dg-column>
+    <clr-dg-column>IS Enabled</clr-dg-column>
+
+
+    <clr-dg-row *ngFor="let item of data " [clrDgItem]="item">
+
+        <clr-dg-action-overflow>
+            <button class="action-item" (click)="onEdit(item)">Edit</button>
+            <button class="action-item" (click)="onDelete(item)">Delete</button>
+        </clr-dg-action-overflow>
+
+        <clr-dg-cell>{{item.icCode}}</clr-dg-cell>
+        <clr-dg-cell>{{item.requestType}}</clr-dg-cell>
+        <clr-dg-cell>{{item.subRequestType}}</clr-dg-cell>
+        <clr-dg-cell>{{item.insuranceCompanyName}}</clr-dg-cell>
+        <clr-dg-cell>{{item.insuranceCompanyCode}}</clr-dg-cell>
+        <clr-dg-cell>{{item.isEnabled}}</clr-dg-cell>
+    </clr-dg-row>
+    <!-- ... -->
+</clr-datagrid>
+
+
+
+<clr-modal #modal>
+    <h3 class="modal-title">Insert IC Client Metadata</h3>
+    <div class="modal-body">
+
+        <clr-alert *ngIf="error" [clrAlertType]="'danger'" [clrAlertClosable]="false">{{error}}</clr-alert>
+
+        <form clrForm [formGroup]="form" [clrLayout]="'horizontal'" [clrLabelSize]="3" class="ofr-w-90">
+            <clr-input-container>
+                <label>Company ID</label>
+                <input clrInput formControlName="icCode" required [placeholder]="'IC Code'" />
+                <clr-control-error *clrIfError="'required'"></clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Request Type</label>
+                <input clrInput formControlName="requestType" required [placeholder]="'requestType'" />
+                <clr-control-error *clrIfError="'required'"></clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Sub Request Type</label>
+                <input clrInput formControlName="subRequestType" [placeholder]="'subRequestType'" />
+            </clr-input-container>
+            <clr-input-container>
+                <label>IC Company Code</label>
+                <input clrInput formControlName="insuranceCompanyCode" [placeholder]="'icaCode'" />
+            </clr-input-container>
+            <clr-input-container>
+                <label>IC Company Name</label>
+                <input clrInput formControlName="insuranceCompanyName" [placeholder]="'icaName'" />
+            </clr-input-container>
+            <clr-toggle-container>
+                <clr-toggle-wrapper>
+                    <input type="checkbox" clrToggle formControlName="isEnabled" />
+                    <label>Is Enabled</label>
+                </clr-toggle-wrapper>
+            </clr-toggle-container>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="form.reset();error=null;modal.close()">Cancel</button>
+        <button [clrLoading]="formSaveLoading" [disabled]="form.invalid" type="button" class="btn btn-primary"
+            (click)="saveValue(form.value)">Save</button>
+    </div>
+</clr-modal>

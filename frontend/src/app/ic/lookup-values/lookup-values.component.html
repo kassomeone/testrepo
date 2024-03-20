@@ -1,0 +1,96 @@
+<form [formGroup]="filterForm" class="filter-container">
+    <button class="btn btn-sm btn-primary" (click)="lookupValueForm.reset() ; lookupModal.open()">Insert New</button>
+    <clr-input-container>
+        <input clrInput formControlName="companyId" placeholder="Company ID" />
+    </clr-input-container>
+    <clr-input-container>
+        <input clrInput formControlName="field" placeholder="Field" />
+    </clr-input-container>
+</form>
+
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+    <clr-dg-column>Company</clr-dg-column>
+    <clr-dg-column>Field</clr-dg-column>
+    <clr-dg-column>Source ID</clr-dg-column>
+    <clr-dg-column>Standard ID</clr-dg-column>
+    <clr-dg-column>Name En</clr-dg-column>
+    <clr-dg-column>Name Ar</clr-dg-column>
+    <clr-dg-column>Desc En</clr-dg-column>
+    <clr-dg-column>Desc Ar</clr-dg-column>
+
+    <clr-dg-row *ngFor="let item of lookups" [clrDgItem]="item">
+        <clr-dg-action-overflow>
+            <button class="action-item" (click)="onEdit(item)">Edit</button>
+            <button class="action-item" (click)="onDelete(item)">Delete</button>
+        </clr-dg-action-overflow>
+
+        <clr-dg-cell>{{ item.companyId }}</clr-dg-cell>
+        <clr-dg-cell>{{ item.field }}</clr-dg-cell>
+        <clr-dg-cell>{{ item.sourceId }}</clr-dg-cell>
+        <clr-dg-cell>{{ item.standardId }}</clr-dg-cell>
+        <clr-dg-cell>{{ item.nameEn }}</clr-dg-cell>
+        <clr-dg-cell>{{ item.nameAr }}</clr-dg-cell>
+        <clr-dg-cell>{{ item.descEn }}</clr-dg-cell>
+        <clr-dg-cell>{{ item.descAr }}</clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+        <!-- {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}
+        of {{total}} Values
+        <clr-dg-pagination #pagination [clrDgTotalItems]="total" [clrDgPageSize]="20" ></clr-dg-pagination> -->
+        <clr-dg-pagination #pagination [clrDgPageSize]="pageSize" [clrDgPage]="10" [clrDgTotalItems]="total">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Values per page</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} Values
+        </clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>
+
+
+<clr-modal #lookupModal>
+    <h3 class="modal-title">Insert New Lookup Value</h3>
+    <div class="modal-body">
+
+        <form clrForm [formGroup]="lookupValueForm" [clrLayout]="'horizontal'" [clrLabelSize]="3" class="ofr-w-90">
+            <clr-input-container>
+                <label>Company ID</label>
+                <input clrInput formControlName="companyId" required [placeholder]="'Company ID'" />
+                <clr-control-error *clrIfError="'required'"></clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Field</label>
+                <input clrInput formControlName="field" required [placeholder]="'Field'" />
+                <clr-control-error *clrIfError="'required'"></clr-control-error>
+            </clr-input-container>
+            <clr-input-container>
+                <label>Name(EN)</label>
+                <input clrInput formControlName="nameEn" [placeholder]="'Name English'" />
+            </clr-input-container>
+            <clr-input-container>
+                <label>Name(AR)</label>
+                <input clrInput formControlName="nameAr" [placeholder]="'Name Arabic'" />
+            </clr-input-container>
+            <clr-input-container>
+                <label>Desc(EN)</label>
+                <input clrInput formControlName="descEn" [placeholder]="'Description English'" />
+            </clr-input-container>
+            <clr-input-container>
+                <label>Desc(AR)</label>
+                <input clrInput formControlName="descAr" [placeholder]="'Description Arabic'" />
+            </clr-input-container>
+            <clr-input-container>
+                <label>Source ID</label>
+                <input clrInput formControlName="sourceId" [placeholder]="'Source ID'" />
+            </clr-input-container>
+            <clr-input-container>
+                <label>Standard ID</label>
+                <input clrInput formControlName="standardId" [placeholder]="'Standard ID'" />
+            </clr-input-container>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline"
+            (click)="lookupValueForm.reset();lookupModal.close()">Cancel</button>
+        <button [clrLoading]="formSaveLoading" [disabled]="lookupValueForm.invalid" type="button"
+            class="btn btn-primary" (click)="saveValue(lookupValueForm.value)">Save</button>
+    </div>
+</clr-modal>
